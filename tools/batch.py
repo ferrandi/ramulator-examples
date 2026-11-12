@@ -19,6 +19,7 @@ def main(arguments):
         print('Suites: ' + ', '.join(SUITES))
         print("Subset: --tests 'smoke_*,polybench_trisolv_*' (repeatable, comma-separated names/globs)")
         print('Runs each suite once, then compares with the latest approved golden collection.')
+        print('Use --no-compare to validate test execution only.')
         print('Each suite also runs directly as <suite>/run.sh. Use it with --help for options.')
         return 0
     if arguments[:1] in (['--list-boards'], ['--clean-work']):
@@ -55,7 +56,7 @@ def main(arguments):
         write(batch / 'batch.json', manifest)
     manifest['complete'] = True
     write(batch / 'batch.json', manifest)
-    if '--dry-run' not in arguments:
+    if '--dry-run' not in arguments and '--no-compare' not in arguments:
         failed |= bool(compare(batch, ROOT / 'results'))
     if '--dry-run' in arguments:
         print('Dry run: no tests executed; comparison and golden approval are unavailable.', flush=True)

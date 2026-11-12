@@ -137,6 +137,23 @@ class GoldenTests(unittest.TestCase):
             self.assertTrue(manifest['complete'])
             self.assertEqual(len(manifest['runs']),len(batch.SUITES))
 
+    def test_ci_runner_skips_comparison_and_runs_all_suites(self):
+        calls = []
+        def invoke(argv, env):
+            calls.append(Path(argv[0]).parent.name)
+            self.assertIn('--no-compare', argv)
+            return 0
+        with patch.object(batch, 'ROOT', self.root), patch.object(batch.subprocess, 'call', side_effect=invoke), patch.object(batch, 'compare') as comparison:
+            self.assertEqual(batch.main(['--all', '--no-compare']), 0)
+            self.assertEqual(calls, list(batch.SUITES))
+            comparison.assert_not_called()
+
+    def test_direct_suite_forwards_no_compare(self):
+        from tools import execution
+        with patch.object(execution, 'main', return_value=0) as execute:
+            execution.run_suite('smoke', lambda: [{'name':'smoke_one','flags':[]}], ['--no-compare'])
+            self.assertFalse(execute.call_args.kwargs['compare_results'])
+
     def test_approve_subset_ignores_unselected_conflicts(self):
         golden.approve(self.run_data(self.result(test='other')), self.results)
         run = self.run_data(self.result(test='chosen'), self.result(test='other', cycles=999))

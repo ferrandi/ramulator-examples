@@ -75,7 +75,8 @@ PolyBench includes its sources and conditional AXI pragmas.
 `include/ramulator/` and `lib/libramulator.so` (or `lib64/`).
 
 The runner and each suite script accept `--board NAME`, `--config PATH`, `--tag LABEL`,
-`--dry-run`, `--keep-work`, `--case NAME` and `--tests PATTERNS`. For example:
+`--dry-run`, `--keep-work`, `--case NAME`, `--tests PATTERNS` and `--no-compare`.
+For example:
 
 ```sh
 ./openmp/run.sh --case openmp_monothread_1ch --tag single-case
@@ -127,6 +128,15 @@ finish, including failures, it automatically compares their results with the
 also perform this comparison when used directly. Golden data is updated through
 manual approval. Logs, input/configuration snapshots, metadata, per-case
 JSON results and `comparison.json` remain local and ignored by Git.
+
+The full CI validates all tests using:
+
+```sh
+./run_tests.sh --all --no-compare
+```
+
+`--no-compare` makes the exit status depend on test execution and functional
+checks. Saved results remain available for later manual comparison or approval.
 
 Select a subset with comma-separated names or shell-style patterns. Quote the
 patterns so the shell does not expand them. Repeat `--tests` to combine selections:

@@ -355,7 +355,7 @@ def assess(case, row, log, work, yaml, exit_code):
     return "PASS", "functional checks and MDPI traffic confirmed", details
 
 
-def main(suite, tag, config, dry_run, board="xcu250", keep_work=False, case_name="", cases=()):
+def main(suite, tag, config, dry_run, board="xcu250", keep_work=False, case_name="", cases=(), compare_results=True):
     profile = board_profile(board)
     now = dt.datetime.now(dt.timezone.utc)
     run = create_run(tag, now)
@@ -392,6 +392,7 @@ def main(suite, tag, config, dry_run, board="xcu250", keep_work=False, case_name
             "tool_paths": paths, "tool_versions": versions, "ramulator_library": library,
             "bambu_identity": tool_identity(paths.get("bambu"), versions.get("bambu")),
             "requested_cases": [case["name"] for case in cases],
+            "comparison_enabled": compare_results,
             "preflight_errors": preflight, "cases": {},
         }
         metadata["runner_sha256"] = {
@@ -488,7 +489,7 @@ def main(suite, tag, config, dry_run, board="xcu250", keep_work=False, case_name
                           f"{str(row.get('dram_write_reqs', '-')):>9}", flush=True)
         write_json(run / "metadata.json", metadata)
         (run / ".complete").touch()
-        if not dry_run and not os.environ.get("RAMULATOR_BATCH"):
+        if compare_results and not dry_run and not os.environ.get("RAMULATOR_BATCH"):
             failed |= bool(compare(run, ROOT / "results"))
         return int(failed)
 
@@ -532,6 +533,8 @@ def run_suite(suite, factory, argv=None, common_flags=()):
                         help="Select comma-separated test names/globs; repeat to combine selections")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--keep-work", action="store_true")
+    parser.add_argument("--no-compare", action="store_true",
+                        help="Validate test execution without comparing golden results")
     args = parser.parse_args(argv)
     tag = args.tag or suite
     for value in (tag,):
@@ -559,7 +562,7 @@ def run_suite(suite, factory, argv=None, common_flags=()):
     signal.signal(signal.SIGHUP, interrupt)
     try:
         return main(suite, tag, args.config, args.dry_run,
-                    args.board, args.keep_work, args.case, cases)
+                    args.board, args.keep_work, args.case, cases, compare_results=not args.no_compare)
     except (OSError, ValueError, KeyError, subprocess.CalledProcessError) as exc:
         print(f"[ERROR] {exc}", file=sys.stderr)
         return 1
