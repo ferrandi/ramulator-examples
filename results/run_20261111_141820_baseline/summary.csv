@@ -1,2 +1,0 @@
-board,test_name,status,total_sim_cycles,wall_time_s,dram_read_reqs,dram_write_reqs,yaml_config,log_file
-xcu250,smoke_vector_add,ERROR,,1.670,0,0,config_snapshot/smoke_vector_add/xcu250_ddr4_2400R.yaml,../archive/xcu250/run_20261111_141820_baseline/logs/smoke_vector_add.log.gz

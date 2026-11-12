@@ -1,2 +1,0 @@
-test_name,status,total_sim_cycles,wall_time_s,dram_read_reqs,dram_write_reqs,yaml_config,log_file
-smoke_vector_add,PASS,119,25.098,16,8,config_snapshot/smoke_vector_add/default_ddr4.yaml,logs/smoke_vector_add.log

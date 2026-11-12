@@ -1,0 +1,26 @@
+[
+  {
+    "name": "xcu250",
+    "bambu_device": "xcu250-2Lfigd2104",
+    "default_clock_ns": 5.0,
+    "default_ramulator_yaml": "installed:xcu250_ddr4_2400R.yaml",
+    "description": "Xilinx Alveo U250 - four-channel DDR4-2400R",
+    "status": "stable"
+  },
+  {
+    "name": "xcu280",
+    "bambu_device": "xcu280-2Lfsvh2892",
+    "default_clock_ns": 4.0,
+    "default_ramulator_yaml": "smoke/configs/hbm2_32ch.yaml",
+    "description": "Xilinx Alveo U280 - 32-channel HBM2",
+    "status": "experimental"
+  },
+  {
+    "name": "xcu55c",
+    "bambu_device": "xcu55c-2Lfsvh2892",
+    "default_clock_ns": 3.33,
+    "default_ramulator_yaml": "smoke/configs/hbm2_32ch.yaml",
+    "description": "Xilinx Alveo U55C - 32-channel HBM2e target using the shared HBM2 model",
+    "status": "experimental"
+  }
+]

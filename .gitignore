@@ -1,13 +1,8 @@
-# Only canonical board CSVs and combined CSV exports belong in Git.
-/results/**
-!/results/*.csv
-
-# Keep execution evidence, snapshots and temporary work local.
+# Local execution evidence is never part of the golden collection.
+/.runs/
 /results/run_*/
-/results/**/logs/
-/results/**/work/
-/results/**/config_snapshot/
-/results/**/.*/
+/results/.lock
+/results/**/.*.tmp
 *.log
 *.log.gz
 
@@ -24,3 +19,8 @@ obj_dir/
 *.exe
 *.vcd
 *.fst
+
+.DS_Store
+**/out*/
+**/polybench_axi_ram_*/
+**/vector_add_axi_ram_*/

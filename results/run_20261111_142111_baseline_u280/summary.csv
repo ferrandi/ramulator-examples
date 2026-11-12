@@ -1,2 +1,0 @@
-board,test_name,status,total_sim_cycles,wall_time_s,dram_read_reqs,dram_write_reqs,yaml_config,log_file
-xcu280,smoke_vector_add,PASS,68,19.464,16,8,config_snapshot/smoke_vector_add/xcu280_hbm2.yaml,../archive/xcu280/run_20261111_142111_baseline_u280/logs/smoke_vector_add.log.gz
