@@ -30,7 +30,8 @@ def recipe(name, top, profile, channels):
     filename = f"{name}.c"
     utils = "polybench/utilities"
     utility = f"@/{utils}/polybench.c"
-    flags = [f"--top-fname={top}", f"--generate-tb=@/{kernel}/tb_{name}.c",
+    flags = [f"--generate-interface={'MINIMAL' if profile == 'native' else 'INFER'}",
+             f"--top-fname={top}", f"--generate-tb=@/{kernel}/tb_{name}.c",
              f"-I@/{utils}", f"@/{kernel}/{filename}", "-DMINI_DATASET", "-DDATA_TYPE_IS_FLOAT",
              "-DPOLYBENCH_USE_RESTRICT", "--std=gnu11", "-p=__float,expf", "--hls-fpdiv=SRT4U", "-s",
              f"--channels-type={'MEM_ACC_11' if channels == 1 else 'MEM_ACC_NN'}",
@@ -65,5 +66,5 @@ def cases():
         case.pop("clock_period_ns")
         yield case
 
-sys.exit(run_suite('polybench', cases, common_flags=['--simulate', '--simulator=VERILATOR', '--compiler=I386_CLANG13', '-m64', '--memory-allocation-policy=NO_BRAM', '--enable-ramulator', '--output-directory=output', '-v5', '--generate-interface=INFER']))
+sys.exit(run_suite('polybench', cases, common_flags=['--simulate', '--simulator=VERILATOR', '--compiler=I386_CLANG13', '-m64', '--memory-allocation-policy=NO_BRAM', '--enable-ramulator', '--output-directory=output', '-v5']))
 PYTHON

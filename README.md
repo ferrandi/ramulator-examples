@@ -98,7 +98,7 @@ CLOCK_PERIOD_NS=10 ./smoke/run.sh --case smoke_axi_1ch
 ```
 
 PolyBench includes all eight original kernels in three profiles:
-`native` (1/2/4 channels), `axi` (1/2/4 channels) and `axi_tb` (one channel,
+`native` (shared minimal bus, 1/2/4 channels), `axi` (1/2/4 channels) and `axi_tb` (one channel,
 with the utility compiled as part of the testbench). The two originally recorded
 cases retain their names `polybench_gemm` and `polybench_atax`.
 

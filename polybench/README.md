@@ -9,9 +9,10 @@ The `m_axi` pragmas are guarded by `#ifdef USE_AXI`; the runner passes `-DUSE_AX
 only for the AXI profiles.
 `utilities/` contains the shared PolyBench support code.
 
-The 58 cases are preserved: `native` with 1/2/4 channels, dedicated `axi` with
+The 58 cases include `native` on the shared minimal bus with 1/2/4 channels, dedicated `axi` with
 1/2/4 channels, `axi_tb` with one channel, and the two originally recorded cases
-`polybench_gemm` and `polybench_atax`.
+`polybench_gemm` and `polybench_atax`. The runner selects `MINIMAL` for `native`
+and `INFER` for the AXI profiles.
 
 ```sh
 ./run.sh --case polybench_trisolv_native_1ch
