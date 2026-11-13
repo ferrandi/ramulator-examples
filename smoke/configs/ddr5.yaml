@@ -13,6 +13,8 @@ MemorySystem:
       rank: 1
     timing:
       preset: DDR5_3200C
+    RFM:
+      BRC: 2
 
   Controller:
     impl: Generic
