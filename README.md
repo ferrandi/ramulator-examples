@@ -29,7 +29,7 @@ configuration. Run a suite directly or use `run_tests.sh` to execute several sui
 | `openmp/` | Functional kernels and the original test list |
 | `gapbs/` | Graph test list and pinned `sources/` submodule |
 | `polybench/` | Eight checked-in kernels with conditional AXI pragmas, headers, testbenches and utilities |
-| `machsuite/` | SpMV and BFS benchmarks |
+| `machsuite/` | All 19 official MachSuite workloads, checked-in sources and AXI adapters; existing SpMV/BFS cases retained |
 | `results/` | Manually approved versioned golden data and collection/comparison scripts |
 | `tools/` | Environment checks, input staging, local execution and golden comparison |
 
@@ -70,7 +70,16 @@ source env.sh
 ```
 
 GAPBS retains its pinned `sources/` submodule.
+For an existing checkout, initialize or restore the recorded submodule revision
+before running the graph suite (normal benchmark execution does not download sources):
+
+```sh
+git submodule update --init --recursive gapbs/sources
+```
+
 PolyBench includes its sources and conditional AXI pragmas.
+MachSuite includes its pinned official sources and small AXI/MDPI adapters;
+it no longer requires `MachSuite_modified.zip` or `BENCHMARK_ARCHIVES`.
 `RAMULATOR2_DIR` points to the prefix containing
 `include/ramulator/` and `lib/libramulator.so` (or `lib64/`).
 
@@ -106,6 +115,25 @@ cases retain their names `polybench_gemm` and `polybench_atax`.
 ./polybench/run.sh --case polybench_trisolv_axi_tb_1ch
 ./polybench/run.sh --case polybench_gemm_native_2ch
 ```
+
+MachSuite exposes all 19 official workloads plus the existing `machsuite_spmv`
+and `machsuite_bfs` compatibility cases. Its [suite README](machsuite/README.md)
+documents the pinned import, explicit backprop reference exception, checks and
+validation limits. The existing BFS case remains fixed to the matching scale-4,
+single-thread configuration. Native source checks and case listing work without
+a Bambu installation:
+
+```sh
+./machsuite/run.sh --list
+python3 machsuite/prepare.py --check
+python3 machsuite/validate.py
+# On the configured Linux Bambu/Ramulator host:
+./machsuite/run.sh --case machsuite_gemm_blocked --no-compare
+./machsuite/run.sh --tests 'machsuite_bfs_*' --no-compare
+```
+
+The source-path migration and additional cases can create new configuration
+hashes. Review hardware runs through the existing manual golden-approval process.
 
 GAPBS keeps the original undirected graph. Its incoming-graph argument positions
 are retained for compatibility; the loader only reads the outgoing graph files.

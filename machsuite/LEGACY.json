@@ -1,0 +1,23 @@
+{
+  "source_archive": "MachSuite_modified.zip",
+  "source_prefix": "MachSuite_modified/MachSuite",
+  "notes": "Compatibility recipe dependencies are byte-identical to the archive. The separate backprop reference comes from MachSuite_modified/backprop/backprop/check.data.",
+  "files": {
+    "legacy/LICENSE": "a5b9c23f9e7aa051fa7aa6287d0236bec9595afd7363bd08ae2e53bdcf4a2e80",
+    "legacy/spmv/crs_axi/input.data": "ce19c9391de6a9c45dece229e7682a0c92fbb370a4c9752f7860150f404b4331",
+    "legacy/spmv/crs_axi/spmv.cpp": "fb2aeade19240ebc907aec345aede01fa06f39f998a83ff1b25820261d0af692",
+    "legacy/spmv/crs_axi/check.data": "52ede2723988c6bb44043d351be57af5c6de45d222e0a4a869b3bd07f3211581",
+    "legacy/spmv/crs_axi/spmv.hpp": "ab83a3df47ae05cc68723f77cef1ef5cbc32c09c9c8f3817fe0002c0c99fb6b8",
+    "legacy/spmv/crs_axi/local_support.cpp": "97cfa930d340d15fb389229fb6e3b88cdbdfccda37c118f43c62770683be62c6",
+    "legacy/common/support.hpp": "8e6832c6bafc7ec440cb9140373829f52432898b4c99c770556b5ad6e534988c",
+    "legacy/common/harness.cpp": "670bd0b6a101236b9559cd1bdef97a6a68236177eb1ea843b28ebb0fd6edad71",
+    "legacy/common/support.cpp": "32c23af512796f813e9f9ebb0170cf50f5032c8debd2d7657d3a2850ae7a82e6",
+    "legacy/bfs_parallel/queue_axi/bfs.cpp": "5a27bd00f2135f17102ca8517f31a633f0cb3393a88122e047820be10d58e1a3",
+    "legacy/bfs_parallel/queue_axi/bfs.hpp": "13dcac4e1428c7bc816f61bf82c5fe7907425e122b1d961b7ccad45a7531fe55",
+    "legacy/bfs_parallel/queue_axi/local_support.cpp": "40a134ebc0b02a47e33a6e001c665ed5c01336b0f631b5a9e0fa0292c401b4da",
+    "legacy/bfs_parallel/queue_axi/data/scale4/input.data": "55e38b7a3965a2c21995ce4d77c6c318726f401cdb7702d8a7482e4bfaf6cc62",
+    "legacy/bfs_parallel/queue_axi/data/scale4/check.data": "d9c7b1b55de5b207e6fc0e01897e247254215fdedd8d0b51a9cdc34d38afa35c",
+    "references/backprop/check.data": "dbc72d8ea7b1ee95b9cbac1788278d5e4418a7704976f43e57b1464827a27b57"
+  },
+  "archive_sha256": "fdd709dc35ad2b452f62d6bb4ea2e05d4a31891424eac76a3eddd6a2b73ff4c8"
+}
